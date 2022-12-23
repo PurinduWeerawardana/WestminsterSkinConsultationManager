@@ -1,3 +1,4 @@
+Garix,Thamash,2001-06-28,0763466810,20210379,Immunodermatology
 Laokon,Adonis,2009-10-16,0781786128,20210381,Practical Dermatopathology
 Athena,Artemis,1987-12-12,0713456789,20210384,Practical Dermatopathology
 Sisina,Dulanz,2004-01-14,0783319878,20210377,Cosmetic Dermatology
@@ -6,5 +7,4 @@ Clotho,Idalia,1990-02-12,0713459789,20210385,Practical Dermatopathology
 Lachis,Idalia,1995-02-12,0713459789,20210386,Practical Dermatopathology
 Afina,Koremi,1987-12-12,0713456789,20210383,Practical Dermatopathology
 Doris,Mairati,2010-10-16,0781782128,20210380,Practical Dermatopathology
-Garix,Thamash,2001-06-28,0763466810,20210379,Immunodermatology
 Kithmi,Thidasa,2007-10-16,0778439428,20210378,Dermatopathology

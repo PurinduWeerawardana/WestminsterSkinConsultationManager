@@ -12,8 +12,8 @@ public final class InputValidator {
             if (input.isEmpty()) {
                 System.out.println("Input cannot be empty! Please enter a valid input: ");
                 input = scanner.nextLine();
-            } else if(input.contains(",")){
-                System.out.println("Input cannot contain ','! Please enter a valid input: ");
+            } else if(input.contains(",")||input.contains(")")||input.contains("(")){
+                System.out.println("Your input contains invalid characters! Please enter a valid input with only alphanumerics: ");
                 input = scanner.nextLine();
             } else {
                 invalid = false;

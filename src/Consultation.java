@@ -2,16 +2,18 @@ import java.time.LocalDateTime;
 
 public class Consultation {
     private static int consultationNumber;
-    private Doctor doctor;
-    private Patient patient;
+    private String doctorsMedicalLicenseNumber;
+    private String patientNic;
     private LocalDateTime bookedDateTime;
     private double cost;
     private String notes;
 
-    public Consultation(Doctor doctor, Patient patient, LocalDateTime bookedDateTime) {
-        this.doctor = doctor;
-        this.patient = patient;
+    public Consultation(String doctorsMedicalLicenseNumber, String patientNic, LocalDateTime bookedDateTime , double cost, String notes) {
+        this.doctorsMedicalLicenseNumber = doctorsMedicalLicenseNumber;
+        this.patientNic = patientNic;
         this.bookedDateTime = bookedDateTime;
+        this.cost = cost;
+        this.notes = notes;
         ++consultationNumber;
     }
 
@@ -19,20 +21,20 @@ public class Consultation {
         return consultationNumber;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
+    public String getDoctor() {
+        return doctorsMedicalLicenseNumber;
     }
 
-    public void setDoctor(Doctor doctor) {
-        this.doctor = doctor;
+    public void setDoctor(String doctorsMedicalLicenseNumber) {
+        this.doctorsMedicalLicenseNumber = doctorsMedicalLicenseNumber;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public String getPatient() {
+        return patientNic;
     }
 
     public void setPatient(Patient patient) {
-        this.patient = patient;
+        this.patientNic = patientNic;
     }
 
     public LocalDateTime getBookedDateTime() {

@@ -1,5 +1,6 @@
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class WestminsterSkinConsultationManager implements SkinConsultationManager {
@@ -8,6 +9,12 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
         this.maxDoctors = maxDoctors;
         loadFromFile();
     }
+
+    public static boolean checkAvailability(String selectedDoctorLicenseNumber, String selectedDateTime, String selectedAppointmentDurationInMinutesWithZeroAndColon) {
+        // TODO: Implement this method
+        return false;
+    }
+
     public void addDoctor() {
         if (doctors.size() < maxDoctors){
             Scanner scanner = new Scanner(System.in);
@@ -34,7 +41,6 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                     System.out.println("A doctor with the same medical license number already exists!");
                 } else {
                     doctors.add(newDoctor);
-                    Collections.sort(doctors);
                     System.out.println("Doctor added successfully.");
                 }
             } else {
@@ -113,5 +119,24 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
         } catch (IOException e) {
             System.out.println("Error reading from file.");
         }
+    }
+
+    public void showGUI(){
+        new WestminsterSkinConsultationsGUI();
+    }
+
+    public static ArrayList<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public static void addPatient(Patient patient) {
+        patients.add(patient);
+    }
+
+    public static void addConsultation(String doctorsMedicalLicenseNumber, String patientNic, LocalDateTime dateAndTime, double cost, String notes){
+        Consultation consultation = new Consultation(doctorsMedicalLicenseNumber, patientNic, dateAndTime, cost, notes);
+        consultations.add(consultation);
+        System.out.println("Consultation added successfully.");
+        System.out.println(consultation);
     }
 }

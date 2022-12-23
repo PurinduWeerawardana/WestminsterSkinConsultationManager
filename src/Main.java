@@ -3,10 +3,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        WestminsterSkinConsultationManager wscm = new WestminsterSkinConsultationManager(10);
         System.out.println("Welcome to Westminster Skin Consultation Manager!\nLoading Previous Data....");
+        WestminsterSkinConsultationManager wscm = new WestminsterSkinConsultationManager(10);
         Scanner scanner = new Scanner(System.in);
         boolean showMenu = true;
+        wscm.showGUI();
         String menuOption;
         while (showMenu) {
             System.out.println(Literals.getMainMenu());
@@ -16,7 +17,7 @@ public class Main {
                 case "D" -> wscm.deleteDoctor();
                 case "P" -> wscm.printDoctorsList();
                 case "S" -> wscm.saveToFile();
-                case "G" -> loadGUI();
+                case "G" -> wscm.showGUI();
                 case "Q" -> {
                     System.out.println(Literals.getExitMenu());
                     showMenu = false;
@@ -26,7 +27,7 @@ public class Main {
         }
 
     }
-    public static void loadGUI() {
-        GUI gui = new GUI();
-    }
+//    public static void loadGUI() {
+//        GUI gui = new GUI();
+//    }
 }

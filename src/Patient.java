@@ -1,14 +1,13 @@
 import java.time.LocalDate;
 
 public class Patient extends Person{
-    private static int patientId;
+    private String patientNic;
 
-    public Patient(String name, String surname, LocalDate dateOfBirth, String mobileNumber) {
+    public Patient(String name, String surname, LocalDate dateOfBirth, String mobileNumber, String patientNic) {
         super(name, surname, dateOfBirth, mobileNumber);
-        ++patientId;
     }
 
-    public static int getPatientId() {
-        return patientId;
+    public String getPatientId() {
+        return patientNic;
     }
 }
