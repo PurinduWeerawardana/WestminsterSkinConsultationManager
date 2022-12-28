@@ -1,3 +1,5 @@
+package literals;
+
 public final class Literals {
 
     public static String getMainMenu() {

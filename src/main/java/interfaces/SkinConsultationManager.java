@@ -1,3 +1,9 @@
+package interfaces;
+
+import models.Consultation;
+import models.Doctor;
+import models.Patient;
+
 import java.util.ArrayList;
 
 public interface SkinConsultationManager {

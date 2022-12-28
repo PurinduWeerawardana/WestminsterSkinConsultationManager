@@ -1,13 +1,18 @@
+import implementation.WestminsterSkinConsultationManager;
+import literals.Literals;
+
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
+        int maxDoctors = 10;
+        double firstConsultationCostPerHour = 15;
+        double followUpConsultationCostPerHour = 25;
         System.out.println("Welcome to Westminster Skin Consultation Manager!\nLoading Previous Data....");
-        WestminsterSkinConsultationManager wscm = new WestminsterSkinConsultationManager(10);
+        WestminsterSkinConsultationManager wscm = new WestminsterSkinConsultationManager(maxDoctors,firstConsultationCostPerHour,followUpConsultationCostPerHour);
         Scanner scanner = new Scanner(System.in);
         boolean showMenu = true;
-        wscm.showGUI();
         String menuOption;
         while (showMenu) {
             System.out.println(Literals.getMainMenu());
@@ -27,7 +32,4 @@ public class Main {
         }
 
     }
-//    public static void loadGUI() {
-//        GUI gui = new GUI();
-//    }
 }

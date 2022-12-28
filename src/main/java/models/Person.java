@@ -1,3 +1,5 @@
+package models;
+
 import java.time.LocalDate;
 
 public abstract class Person {
@@ -43,5 +45,9 @@ public abstract class Person {
 
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
+    }
+
+    public String toString() {
+        return "Name: " + name + "\nSurname: " + surname + "\nDate of Birth: " + dateOfBirth + "\nMobile Number: " + mobileNumber + "\n";
     }
 }
