@@ -62,10 +62,4 @@ public class WestminsterSkinConsultationsGUI {
         homeFrame.setVisible(true);
     }
 
-
-
-
-//    public static void main(String[] args) {
-//        GUI.WestminsterSkinConsultationsGUI gui = new GUI.WestminsterSkinConsultationsGUI();
-//    }
 }

@@ -59,25 +59,14 @@ public class WorkSchedule{
         }
         if (durationInHours == 1) {
             bookedHours.add(hours[0]);
-            for (LocalDateTime hour : hours) {
-                System.out.println(hour);
-            }
             return true;
         } else{
             for (int i=1; i<durationInHours; i++){
                 hours[i] = hours[i-1].plusHours(1);
-                System.out.println(hours[i]);
                 Collections.addAll(bookedHours, hours);
-            }
-            for (LocalDateTime hour : hours) {
-                System.out.println(hour);
             }
         return true;
         }
     }
 
-    public String toString() {
-        return "Working Hours: " + workingHours + "," +
-                "\tBooked Hours: " + bookedHours;
-    }
 }

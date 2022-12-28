@@ -263,11 +263,6 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                 String encryptedNotesFilePath = ".\\encrypted\\" + "notes_" + patientNic + "_" + dateAndTime.toString().replace(":","") + "_" + doctorsMedicalLicenseNumber;
                 String imageEncryptionKey = null;
                 String notesEncryptionKey = null;
-                System.out.println("notes");
-                System.out.println(notes);
-                System.out.println("hrithe");
-                System.out.println(notes.length());
-                System.out.println(notes.isEmpty());
                 if (imageFilePath != null){
                     imageEncryptionKey = DataEncryptionDecryption.encryptDataFromFile(imageFilePath,encryptedImageFilePath);
 

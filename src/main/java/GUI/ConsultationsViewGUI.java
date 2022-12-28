@@ -100,7 +100,7 @@ public class ConsultationsViewGUI extends JFrame {
         consultationsTable.setFont(new Font("SansSerif", Font.PLAIN, 20));
         JScrollPane scrollPane = new JScrollPane(consultationsTable);
         for (Consultation patientConsultation : patientConsultations) {
-            Object rowData[] = new Object[6];
+            Object[] rowData = new Object[6];
             rowData[0] = patientConsultation.getConsultationId();
             Doctor selectedDoctor = null;
             for (Doctor doctor : doctors) {
@@ -161,8 +161,6 @@ public class ConsultationsViewGUI extends JFrame {
         patientNameLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
         JLabel patientNICLabel = new JLabel("Patient NIC: " + patient.getPatientNIC());
         patientNICLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
-        JLabel doctorNameLabel = new JLabel("Doctor Name: ");
-        doctorNameLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
         Doctor selectedDoctor = null;
         for (Doctor doctor : doctors) {
             if (doctor.getMedicalLicenseNumber().equals(consultation.getDoctor())) {
@@ -170,8 +168,8 @@ public class ConsultationsViewGUI extends JFrame {
                 break;
             }
         }
-        JLabel doctorName = new JLabel(selectedDoctor.getName() + " " + selectedDoctor.getSurname());
-        doctorName.setFont(new Font("SansSerif", Font.PLAIN, 20));
+        JLabel doctorNameLabel = new JLabel("Doctors Name: " + selectedDoctor.getName() + " " + selectedDoctor.getSurname());
+        doctorNameLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
         JLabel consultationDateLabel = new JLabel("Consultation Date: " + consultation.getBookedDateTime().toLocalDate());
         consultationDateLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
         JLabel consultationTimeLabel = new JLabel("Consultation Time: " + consultation.getBookedDateTime().toLocalTime());
@@ -212,7 +210,6 @@ public class ConsultationsViewGUI extends JFrame {
         consultationDetailsPanel.add(patientNameLabel);
         consultationDetailsPanel.add(patientNICLabel);
         consultationDetailsPanel.add(doctorNameLabel);
-        consultationDetailsPanel.add(doctorName);
         consultationDetailsPanel.add(consultationDateLabel);
         consultationDetailsPanel.add(consultationTimeLabel);
         consultationDetailsPanel.add(consultationDurationLabel);
@@ -226,7 +223,7 @@ public class ConsultationsViewGUI extends JFrame {
         consultationDetailsFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                if (imagePath != null) {
+                if (!imagePath.isEmpty()) {
                     File file = new File(decryptedImagePath);
                     file.delete();
                 }
@@ -236,17 +233,3 @@ public class ConsultationsViewGUI extends JFrame {
         consultationDetailsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 }
-
-//    JLabel notesLabel = new JLabel("Notes: ");
-//            notesLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
-//                    JTextArea notesTextArea = new JTextArea();
-//                    notesTextArea.setFont(new Font("SansSerif", Font.PLAIN, 20));
-//                    notesTextArea.setLineWrap(true);
-//                    notesTextArea.setWrapStyleWord(true);
-//                    notesTextArea.setEditable(false);
-//                    notesTextArea.setRows(10);
-//                    notesTextArea.setColumns(50);
-//                    notesTextArea.setText(new String(Files.readAllBytes(Paths.get(notesPath))));
-//                    JScrollPane scrollPane = new JScrollPane(notesTextArea);
-//                    consultationDetailsPanel.add(notesLabel);
-//                    consultationDetailsPanel.add(scrollPane);

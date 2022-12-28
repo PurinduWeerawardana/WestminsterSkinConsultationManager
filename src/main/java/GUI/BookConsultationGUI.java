@@ -389,7 +389,6 @@ public class BookConsultationGUI extends JFrame {
                 if (returnValue == JFileChooser.APPROVE_OPTION) {
                     File selectedFile = fileChooser.getSelectedFile();
                     imageFilePath[0] = selectedFile.getAbsolutePath();
-                    System.out.println(selectedFile.getAbsolutePath());
                 }
             }
         });

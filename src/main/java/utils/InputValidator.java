@@ -48,4 +48,5 @@ public final class InputValidator {
         System.out.println(prompt);
         return dateValidator();
     }
+
 }

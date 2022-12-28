@@ -10,9 +10,6 @@ import javax.crypto.CipherInputStream;
 
 public class DataEncryptionDecryption {
 
-    public DataEncryptionDecryption() {
-    }
-
     // Reference: https://github.com/Spicin/imageencryptiondecryptioinAndroidHire/blob/main/Myclass.java
     // added functionality to encrypt and decrypt files using AES algorithm with a secret string key
     public static String encryptDataFromFile(String sourcePath, String outputPath) {
@@ -21,8 +18,6 @@ public class DataEncryptionDecryption {
             KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
             Key key = keyGenerator.generateKey();
             String encodedKey = Base64.getEncoder().encodeToString(key.getEncoded());
-            System.out.println("Encoded Key: " + encodedKey);
-            System.out.println("Length: " + encodedKey.length());
             cipher.init(Cipher.ENCRYPT_MODE, key);
             CipherInputStream imageToEncrypt = new CipherInputStream(new FileInputStream(sourcePath), cipher);
             FileOutputStream encryptedImage = new FileOutputStream(outputPath);
@@ -59,6 +54,7 @@ public class DataEncryptionDecryption {
             e.printStackTrace();
         }
     }
+
     public static String decryptData(String sourcePath, String encodedKey) {
         try {
             Cipher cipher = Cipher.getInstance("AES");
@@ -85,21 +81,14 @@ public class DataEncryptionDecryption {
             KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
             Key key = keyGenerator.generateKey();
             String encodedKey = Base64.getEncoder().encodeToString(key.getEncoded());
-            System.out.println("Encoded Key: " + encodedKey);
-            System.out.println("Length: " + encodedKey.length());
             cipher.init(Cipher.ENCRYPT_MODE, key);
             byte [] dataBytes = data.getBytes();
             cipher.update(dataBytes);
             byte[] encryptedData = cipher.doFinal();
-//            CipherInputStream imageToEncrypt = new CipherInputStream(data, cipher);
             FileOutputStream encryptedFile = new FileOutputStream(outputPath);
-            int i;
             for (byte b: encryptedData) {
                 encryptedFile.write(b);
             }
-//            while((i= imageToEncrypt.read())!=-1) {
-//                encryptedFile.write(i);
-//            }
             encryptedFile.flush();
             encryptedFile.close();
             return encodedKey;
@@ -108,5 +97,6 @@ public class DataEncryptionDecryption {
             return null;
         }
     }
+
     }
 
