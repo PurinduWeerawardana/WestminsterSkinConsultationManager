@@ -37,7 +37,7 @@ public class ConsultationsViewGUI extends JFrame {
             ArrayList<Consultation> patientConsultations = new ArrayList<>();
             if (nic.length() != 0) {
                 for (Consultation consultation : consultations) {
-                    if (consultation.getPatient().equals(nic)) {
+                    if (consultation.getPatientNIC().equals(nic)) {
                         patientConsultations.add(consultation);
                     }
                 }
@@ -54,7 +54,7 @@ public class ConsultationsViewGUI extends JFrame {
                 JOptionPane.showMessageDialog(null, "Invalid NIC");
             }
         });
-        viewConsultationsPanel.add(GUIPanels.getTitlePanel("View Consultations"), BorderLayout.NORTH);
+        viewConsultationsPanel.add(CommonGUIPanels.getTitlePanel("View Consultations"), BorderLayout.NORTH);
         mainPanel.add(enterNICLabel);
         mainPanel.add(enterNICField);
         mainPanel.add(searchButton);
@@ -70,7 +70,7 @@ public class ConsultationsViewGUI extends JFrame {
         JPanel consultationsTablePanel = new JPanel(new CardLayout());
         JPanel patientDetailsPanel = new JPanel();
         patientDetailsPanel.setLayout(new BoxLayout(patientDetailsPanel, BoxLayout.Y_AXIS));
-        String patientNIC = patientConsultations.get(0).getPatient();
+        String patientNIC = patientConsultations.get(0).getPatientNIC();
         Patient selectedPatient = null;
         for (Patient patient : patients) {
             if (patient.getPatientNIC().equals(patientNIC)) {
@@ -104,7 +104,7 @@ public class ConsultationsViewGUI extends JFrame {
             rowData[0] = patientConsultation.getConsultationId();
             Doctor selectedDoctor = null;
             for (Doctor doctor : doctors) {
-                if (doctor.getMedicalLicenseNumber().equals(patientConsultation.getDoctor())) {
+                if (doctor.getMedicalLicenseNumber().equals(patientConsultation.getDoctorLicenseNumber())) {
                     selectedDoctor = doctor;
                     break;
                 }
@@ -163,7 +163,7 @@ public class ConsultationsViewGUI extends JFrame {
         patientNICLabel.setFont(new Font("SansSerif", Font.PLAIN, 20));
         Doctor selectedDoctor = null;
         for (Doctor doctor : doctors) {
-            if (doctor.getMedicalLicenseNumber().equals(consultation.getDoctor())) {
+            if (doctor.getMedicalLicenseNumber().equals(consultation.getDoctorLicenseNumber())) {
                 selectedDoctor = doctor;
                 break;
             }

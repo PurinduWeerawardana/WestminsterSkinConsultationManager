@@ -6,7 +6,7 @@ public class Consultation {
     private static int consultationNumber;
     private String consultationID;
     private String doctorsMedicalLicenseNumber;
-    private String patientNic;
+    private String patientNIC;
     private LocalDateTime bookedDateTime;
     private int duration;
     private double cost;
@@ -15,9 +15,9 @@ public class Consultation {
     private String imageFilePath;
     private String imageEncryptionKey;
 
-    public Consultation(String doctorsMedicalLicenseNumber, String patientNic, LocalDateTime bookedDateTime, int duration, double cost, String notesFilePath, String notesEncryptionKey, String imagePath, String imageEncryptionKey) {
+    public Consultation(String doctorsMedicalLicenseNumber, String patientNIC, LocalDateTime bookedDateTime, int duration, double cost, String notesFilePath, String notesEncryptionKey, String imagePath, String imageEncryptionKey) {
         this.doctorsMedicalLicenseNumber = doctorsMedicalLicenseNumber;
-        this.patientNic = patientNic;
+        this.patientNIC = patientNIC;
         this.bookedDateTime = bookedDateTime;
         this.duration = duration;
         this.cost = cost;
@@ -33,7 +33,7 @@ public class Consultation {
         return consultationID;
     }
 
-    public String getDoctor() {
+    public String getDoctorLicenseNumber() {
         return doctorsMedicalLicenseNumber;
     }
 
@@ -41,20 +41,12 @@ public class Consultation {
         this.doctorsMedicalLicenseNumber = doctorsMedicalLicenseNumber;
     }
 
-    public String getPatient() {
-        return patientNic;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patientNic = patientNic;
+    public String getPatientNIC() {
+        return patientNIC;
     }
 
     public LocalDateTime getBookedDateTime() {
         return bookedDateTime;
-    }
-
-    public void setBookedDateTime(LocalDateTime bookedDateTime) {
-        this.bookedDateTime = bookedDateTime;
     }
 
     public double getCost() {

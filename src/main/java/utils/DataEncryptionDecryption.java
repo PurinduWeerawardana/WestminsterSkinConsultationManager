@@ -22,7 +22,7 @@ public class DataEncryptionDecryption {
             CipherInputStream imageToEncrypt = new CipherInputStream(new FileInputStream(sourcePath), cipher);
             FileOutputStream encryptedImage = new FileOutputStream(outputPath);
             int i;
-            while((i= imageToEncrypt.read())!=-1) {
+            while((i = imageToEncrypt.read())!=-1) {
                 encryptedImage.write(i);
             }
             imageToEncrypt.close();

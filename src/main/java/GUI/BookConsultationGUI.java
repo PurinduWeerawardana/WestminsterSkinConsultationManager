@@ -34,7 +34,7 @@ public class BookConsultationGUI extends JFrame {
         // create main panel of book consultations frame
         mainBookConsultationsPanel = new JPanel(new BorderLayout());
         // create and add title panel main panel
-        mainBookConsultationsPanel.add(GUIPanels.getTitlePanel("Select A Doctor"), BorderLayout.NORTH);
+        mainBookConsultationsPanel.add(CommonGUIPanels.getTitlePanel("Select A Doctor"), BorderLayout.NORTH);
         // create consultation panel
         JPanel doctorDateTimeSelectionPanel = new JPanel();
         doctorDateTimeSelectionPanel.setLayout(new BoxLayout(doctorDateTimeSelectionPanel, BoxLayout.Y_AXIS));
@@ -145,7 +145,7 @@ public class BookConsultationGUI extends JFrame {
                     LocalDateTime selectedDateTime = LocalDateTime.parse(selectedDate + " " + selectedTime, DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a"));
                     int selectedAppointmentDuration = Integer.parseInt(selectedDuration.substring(0, 1));
                     mainBookConsultationsPanel.removeAll();
-                    mainBookConsultationsPanel.add(GUIPanels.getTitlePanel("Patient Information"), BorderLayout.NORTH);
+                    mainBookConsultationsPanel.add(CommonGUIPanels.getTitlePanel("Patient Information"), BorderLayout.NORTH);
                     mainBookConsultationsPanel.add(existingOrNewPatientSelectionPanel(selectedDoctorObject, selectedDateTime, selectedAppointmentDuration), BorderLayout.CENTER,1);
                     mainBookConsultationsPanel.revalidate();
                     mainBookConsultationsPanel.repaint();
@@ -189,7 +189,7 @@ public class BookConsultationGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainBookConsultationsPanel.removeAll();
-                mainBookConsultationsPanel.add(GUIPanels.getTitlePanel("Existing Patient NIC"), BorderLayout.NORTH);
+                mainBookConsultationsPanel.add(CommonGUIPanels.getTitlePanel("Existing Patient NIC"), BorderLayout.NORTH);
                 mainBookConsultationsPanel.add(existingPatientSelectionPanel(finalSelectedDoctorObject, selectedDateTime, selectedAppointmentDuration, appointmentDetailsPanel), BorderLayout.CENTER);
                 mainBookConsultationsPanel.revalidate();
                 mainBookConsultationsPanel.repaint();
@@ -203,7 +203,7 @@ public class BookConsultationGUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 mainBookConsultationsPanel.removeAll();
-                mainBookConsultationsPanel.add(GUIPanels.getTitlePanel("New Patient Details"), BorderLayout.NORTH);
+                mainBookConsultationsPanel.add(CommonGUIPanels.getTitlePanel("New Patient Details"), BorderLayout.NORTH);
                 JPanel [] newPatientPanels = newPatientDetailsPanel(finalSelectedDoctorObject,selectedDateTime,selectedAppointmentDuration,appointmentDetailsPanel);
                 mainBookConsultationsPanel.add(newPatientPanels[0], BorderLayout.CENTER);
                 mainBookConsultationsPanel.add(newPatientPanels[1], BorderLayout.SOUTH);
@@ -239,18 +239,21 @@ public class BookConsultationGUI extends JFrame {
                 if (nic.equals("")) {
                     JOptionPane.showMessageDialog(mainPanel, "Please enter the NIC to continue.", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
+                    boolean patientFound = false;
                     for (Patient patient : patients) {
                         if (patient.getPatientNIC().equals(nic)) {
+                            patientFound = true;
                             mainBookConsultationsPanel.removeAll();
-                            mainBookConsultationsPanel.add(GUIPanels.getTitlePanel("Patient Information"), BorderLayout.NORTH);
+                            mainBookConsultationsPanel.add(CommonGUIPanels.getTitlePanel("Patient Information"), BorderLayout.NORTH);
                             String dateOfBirth = patient.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                             mainBookConsultationsPanel.add(appointmentConfirmationPanel(selectedDoctorObject,selectedDateTime,selectedAppointmentDuration,appointmentDetailsPanel, patient.getName(), patient.getSurname(), dateOfBirth,nic,patient.getMobileNumber(),true), BorderLayout.CENTER);
                             mainBookConsultationsPanel.revalidate();
                             mainBookConsultationsPanel.repaint();
                             break;
-                        } else {
-                            JOptionPane.showMessageDialog(mainPanel, "Patient not found. Please enter a valid NIC.", "Error", JOptionPane.ERROR_MESSAGE);
                         }
+                    }
+                    if (!patientFound) {
+                        JOptionPane.showMessageDialog(mainPanel, "Patient not found. Please enter a valid NIC.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
             }
@@ -310,9 +313,19 @@ public class BookConsultationGUI extends JFrame {
                 String contactNumber = contactNumberTextField.getText();
                 if(firstName.equals("") || surname.equals("") || dateOfBirth.equals("") || dateOfBirth.equals("Select Date of Birth") || nic.equals("") || contactNumber.equals("")){
                     JOptionPane.showMessageDialog(null, "Please fill in all the fields", "Error", JOptionPane.ERROR_MESSAGE);
-                }else{
+                }else if (nic.length() != 10) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid NIC", "Error", JOptionPane.ERROR_MESSAGE);
+                }else if (contactNumber.length() != 10) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid contact number", "Error", JOptionPane.ERROR_MESSAGE);
+                }else {
+                    for (Patient patient : patients) {
+                        if (patient.getPatientNIC().equals(nic)) {
+                            JOptionPane.showMessageDialog(null, "Patient already exists. Please enter a valid NIC.", "Error", JOptionPane.ERROR_MESSAGE);
+                            return;
+                        }
+                    }
                     mainBookConsultationsPanel.removeAll();
-                    mainBookConsultationsPanel.add(GUIPanels.getTitlePanel("Appointment Confirmation"), BorderLayout.NORTH);
+                    mainBookConsultationsPanel.add(CommonGUIPanels.getTitlePanel("Appointment Confirmation"), BorderLayout.NORTH);
                     mainBookConsultationsPanel.add(appointmentConfirmationPanel(selectedDoctorObject,selectedDateTime,selectedAppointmentDuration,appointmentDetailsPanel,firstName,surname,dateOfBirth,nic,contactNumber,false), BorderLayout.CENTER);
                     mainBookConsultationsPanel.revalidate();
                     mainBookConsultationsPanel.repaint();

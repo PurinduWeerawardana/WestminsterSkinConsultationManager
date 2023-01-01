@@ -15,7 +15,7 @@ public class DoctorViewGUI extends JFrame {
         // create main panel of doctors frame
         JPanel mainDoctorsPanel = new JPanel(new BorderLayout());
         // add a title panel to the main panel
-        mainDoctorsPanel.add(GUIPanels.getTitlePanel("Available Doctors"), BorderLayout.NORTH);
+        mainDoctorsPanel.add(CommonGUIPanels.getTitlePanel("Available Doctors"), BorderLayout.NORTH);
         // create doctors table panel
         JPanel doctorsTablePanel = new JPanel(new CardLayout(30, 0));
         // create items of doctors table panel

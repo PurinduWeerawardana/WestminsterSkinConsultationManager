@@ -2,6 +2,7 @@ package implementation;
 
 import GUI.WestminsterSkinConsultationsGUI;
 import interfaces.SkinConsultationManager;
+import literals.Literals;
 import models.Consultation;
 import models.Doctor;
 import models.Patient;
@@ -18,6 +19,34 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
     int maxDoctors;
     double firstConsultationCostPerHour;
     double followUpConsultationCostPerHour;
+
+    WestminsterSkinConsultationsGUI gui;
+
+    public void showMenu(){
+        System.out.println("Welcome to Westminster Skin Consultation Manager!");
+        Scanner scanner = new Scanner(System.in);
+        boolean showMenu = true;
+        String menuOption;
+        while (showMenu) {
+            System.out.println(Literals.getMainMenu());
+            menuOption = scanner.nextLine();
+            switch (menuOption.toUpperCase()) {
+                case "A" -> addDoctor();
+                case "D" -> deleteDoctor();
+                case "P" -> printDoctorsList();
+                case "S" -> saveToFile();
+                case "G" -> showGUI();
+                case "Q" -> {
+                    System.out.println(Literals.getExitMenu());
+                    showMenu = false;
+                    if (gui != null) {
+                        gui.dispose();
+                    }
+                }
+                default -> System.out.println(Literals.getInvalidOptionMenu());
+            }
+        }
+    }
 
     public void addDoctor() {
         if (doctors.size() < maxDoctors){
@@ -91,7 +120,9 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
             System.out.println("No doctors available!");
         }
     }
+
     public void saveToFile(){
+        System.out.println("Saving data...");
         try (FileWriter fileWriter = new FileWriter(".\\database\\doctors.txt")) {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             for (Doctor doctor : doctors) {
@@ -123,7 +154,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
         try (FileWriter fileWriter = new FileWriter(".\\database\\consultations.txt")) {
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
             for (Consultation consultation : consultations) {
-                bufferedWriter.write(consultation.getDoctor() + "," + consultation.getPatient() + "," + consultation.getBookedDateTime() + "," + consultation.getDuration() + "," + consultation.getCost() + "," + consultation.getNotesFilePath() + "," + consultation.getNotesEncryptionKey() + "," + consultation.getImageFilePath() + "," + consultation.getImageEncryptionKey());
+                bufferedWriter.write(consultation.getDoctorLicenseNumber() + "," + consultation.getPatientNIC() + "," + consultation.getBookedDateTime() + "," + consultation.getDuration() + "," + consultation.getCost() + "," + consultation.getNotesFilePath() + "," + consultation.getNotesEncryptionKey() + "," + consultation.getImageFilePath() + "," + consultation.getImageEncryptionKey());
                 bufferedWriter.newLine();
             }
             bufferedWriter.flush();
@@ -137,6 +168,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
     }
 
     public void loadFromFile() {
+        System.out.println("Loading data...");
         try (FileReader fileReader = new FileReader(".\\database\\patients.txt")) {
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
@@ -172,7 +204,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
                 String[] doctorData = line.split(",");
                 ArrayList<Consultation> doctorConsultations = new ArrayList<>();
                 for (Consultation consultation : consultations) {
-                    if (consultation.getDoctor().equals(doctorData[4])) {
+                    if (consultation.getDoctorLicenseNumber().equals(doctorData[4])) {
                         doctorConsultations.add(consultation);
                     }
                 }
@@ -193,7 +225,7 @@ public class WestminsterSkinConsultationManager implements SkinConsultationManag
     }
 
     public void showGUI(){
-        new WestminsterSkinConsultationsGUI(doctors,patients,consultations,firstConsultationCostPerHour,followUpConsultationCostPerHour);
+        gui = new WestminsterSkinConsultationsGUI(doctors,patients,consultations,firstConsultationCostPerHour,followUpConsultationCostPerHour);
     }
 
     public static Doctor getDoctorByLicenseNumber(String medicalLicenseNumber){

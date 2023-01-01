@@ -3,10 +3,11 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 
-public class GUIPanels {
+public class CommonGUIPanels {
     public static JPanel getTitlePanel(String title){
         JPanel titlePanel = new JPanel();
         titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.Y_AXIS));
+        titlePanel.setBackground(new Color(211, 250, 254));
         // create items of title panel
         JLabel titleLabel1 = new JLabel("Westminster Skin Consultations");
         titleLabel1.setAlignmentX(Component.CENTER_ALIGNMENT);

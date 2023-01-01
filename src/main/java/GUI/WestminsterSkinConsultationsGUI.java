@@ -4,18 +4,19 @@ import models.Consultation;
 import models.Doctor;
 import models.Patient;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 
-public class WestminsterSkinConsultationsGUI {
-    ArrayList<Doctor> doctors;
-    ArrayList<Patient> patients;
-    ArrayList<Consultation> consultations;
-    double firstConsultationCostPerHour;
-    double followUpConsultationCostPerHour;
-    JFrame homeFrame;
+public class WestminsterSkinConsultationsGUI extends JFrame {
+    private ArrayList<Doctor> doctors;
+    private ArrayList<Patient> patients;
+    private ArrayList<Consultation> consultations;
+    private double firstConsultationCostPerHour;
+    private double followUpConsultationCostPerHour;
 
     public WestminsterSkinConsultationsGUI(ArrayList<Doctor> doctors, ArrayList<Patient> patients, ArrayList<Consultation> consultations, double firstConsultationCostPerHour, double followUpConsultationCostPerHour) {
         this.doctors = doctors;
@@ -23,8 +24,14 @@ public class WestminsterSkinConsultationsGUI {
         this.consultations = consultations;
         this.firstConsultationCostPerHour = firstConsultationCostPerHour;
         this.followUpConsultationCostPerHour = followUpConsultationCostPerHour;
-        homeFrame = new JFrame("Westminster Skin Consultations");
-        homeFrame.setLayout(new GridBagLayout());
+        this.setTitle("Westminster Skin Consultations");
+        // set background image
+        try {
+            this.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File(".\\database\\bg.jpg")))));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         JPanel homePanel = new JPanel(new GridLayout(2,1));
         JPanel welcomePanel = new JPanel(new GridLayout(2,1));
@@ -36,18 +43,21 @@ public class WestminsterSkinConsultationsGUI {
         JButton viewDoctorsButton = new JButton("View Doctors");
         viewDoctorsButton.setFont(new Font("SansSerif", Font.PLAIN, 20));
         viewDoctorsButton.addActionListener(e -> {
-            new DoctorViewGUI(doctors);
+            showDoctorViewGUI();
         });
         JButton bookConsultationButton = new JButton("Book Consultation");
         bookConsultationButton.setFont(new Font("SansSerif", Font.PLAIN, 20));
         bookConsultationButton.addActionListener(e -> {
-            new BookConsultationGUI(doctors, patients, firstConsultationCostPerHour, followUpConsultationCostPerHour);
+            showBookConsultationGUI();
         });
         JButton viewConsultationsButton = new JButton("View Consultations");
         viewConsultationsButton.setFont(new Font("SansSerif", Font.PLAIN, 20));
         viewConsultationsButton.addActionListener(e -> {
-            new ConsultationsViewGUI(consultations, patients, doctors);
+            showConsultationsViewGUI();
         });
+        homePanel.setOpaque(false);
+        welcomePanel.setOpaque(false);
+        buttonPanel.setOpaque(false);
         buttonPanel.add(viewDoctorsButton);
         buttonPanel.add(viewConsultationsButton);
         buttonPanel.add(bookConsultationButton);
@@ -55,11 +65,22 @@ public class WestminsterSkinConsultationsGUI {
         welcomePanel.add(welcomeLabel2);
         homePanel.add(welcomePanel);
         homePanel.add(buttonPanel);
-        homeFrame.add(homePanel, gbc);
-        homeFrame.setSize(1200, 700);
-        homeFrame.setLocationRelativeTo(null);
-        homeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        homeFrame.setVisible(true);
+        this.add(homePanel, gbc);
+        this.setSize(1200, 700);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setVisible(true);
     }
 
+    private void showDoctorViewGUI() {
+        new DoctorViewGUI(doctors);
+    }
+
+    private void showBookConsultationGUI() {
+        new BookConsultationGUI(doctors, patients, firstConsultationCostPerHour, followUpConsultationCostPerHour);
+    }
+
+    private void showConsultationsViewGUI() {
+        new ConsultationsViewGUI(consultations, patients, doctors);
+    }
 }
